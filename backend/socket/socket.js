@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors:{
-        origin:['https://nexttry-k9st.onrender.com/'],
+        origin:['https://chatbot-1-v2p8.onrender.com/'],
         methods:['GET', 'POST'],
     },
 });
