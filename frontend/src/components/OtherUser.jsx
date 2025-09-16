@@ -1,14 +1,21 @@
 import React from 'react'
 import { useDispatch,useSelector } from "react-redux";
 import { setSelectedUser, setIsSidebarVisible } from '../redux/userSlice';
+import { decrementUnreadMessages } from '../redux/messageSlice';
 
 const OtherUser = ({ user }) => {
     const dispatch = useDispatch();
     const {selectedUser, onlineUsers} = useSelector(store=>store.user);
+    const { unreadMessages } = useSelector(store => store.message);
     const isOnline = onlineUsers?.includes(user._id);
+    const unreadCount = unreadMessages && unreadMessages[user._id] ? unreadMessages[user._id] : 0;
+
     const selectedUserHandler = (user) => {
         dispatch(setSelectedUser(user));
         dispatch(setIsSidebarVisible(false));
+        if (unreadCount > 0) {
+            dispatch(decrementUnreadMessages(user._id));
+        }
     }
     return (
         <>
@@ -21,6 +28,11 @@ const OtherUser = ({ user }) => {
                 <div className='flex flex-col flex-1'>
                     <div className='flex justify-between gap-2 '>
                         <p>{user?.fullName}</p>
+                        {unreadCount > 0 && (
+                            <span className="bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                                {unreadCount}
+                            </span>
+                        )}
                     </div>
                 </div>
             </div>
