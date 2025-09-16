@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice} from "@reduxxjs/toolkit";
 
 const messageSlice = createSlice({
     name:"message",
@@ -23,4 +23,3 @@ const messageSlice = createSlice({
 });
 export const {setMessages, setUnreadMessages, decrementUnreadMessages} = messageSlice.actions;
 export default messageSlice.reducer;
-
